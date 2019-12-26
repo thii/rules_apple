@@ -314,6 +314,7 @@ def _ios_static_framework_impl(ctx):
 
     processor_partials = [
         partials.apple_bundle_info_partial(),
+        partials.apple_resource_bundle_info_partial(bundle_id = "Hi"),
         partials.binary_partial(binary_artifact = binary_artifact),
     ]
 

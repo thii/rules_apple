@@ -169,6 +169,13 @@ a "marker" to indicate that a target is specifically an Apple resource bundle
 dependency is an Apple resource bundle should use this provider to describe that
 requirement.
 """,
+    fields = {
+        "bundle_id": """
+`string`. The bundle identifier (i.e., `CFBundleIdentifier` in `Info.plist`) of
+the resource bundle. Not to confuse with the bundle identifier of the bundling
+target.
+""",
+    }
 )
 
 AppleTestInfo = provider(

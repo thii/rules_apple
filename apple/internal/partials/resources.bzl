@@ -56,6 +56,7 @@ load(
     "@build_bazel_rules_apple//apple:providers.bzl",
     "AppleBundleInfo",
     "AppleResourceInfo",
+    "AppleResourceBundleInfo",
 )
 load(
     "@bazel_skylib//lib:new_sets.bzl",
@@ -68,6 +69,10 @@ load(
 load(
     "@bazel_skylib//lib:paths.bzl",
     "paths",
+)
+load(
+    "@bazel_skylib//lib:types.bzl",
+    "types",
 )
 
 def _merge_root_infoplists(ctx, infoplists, out_infoplist, **kwargs):

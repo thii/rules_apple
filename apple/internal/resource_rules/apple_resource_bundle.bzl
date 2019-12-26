@@ -88,16 +88,25 @@ def _apple_resource_bundle_impl(ctx):
             unowned_resources = depset(),
         )
 
+    apple_resource_bundle_info = AppleResourceBundleInfo(
+        bundle_id = ctx.attr.bundle_id
+    )
+
     return [
         # TODO(b/122578556): Remove this ObjC provider instance.
         apple_common.new_objc_provider(),
         complete_resource_provider,
-        AppleResourceBundleInfo(),
+        apple_resource_bundle_info,
     ]
 
 apple_resource_bundle = rule(
     implementation = _apple_resource_bundle_impl,
     attrs = {
+        "bundle_id": attr.string(
+            doc = """
+The bundle ID (reverse-DNS path followed by app name) of the resource bundle.
+""",
+        ),
         "bundle_name": attr.string(
             doc = """
 The desired name of the bundle (without the `.bundle` extension). If this attribute is not set,
