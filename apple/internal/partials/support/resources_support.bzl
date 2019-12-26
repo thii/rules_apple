@@ -184,7 +184,7 @@ def _datamodels(ctx, parent_dir, files, swift_module):
 
     return struct(files = output_files)
 
-def _infoplists(ctx, parent_dir, files):
+def _infoplists(ctx, parent_dir, files, resource_bundle_id = None):
     """Processes infoplists.
 
     If parent_dir is not empty, the files will be treated as resource bundle infoplists and are
@@ -213,6 +213,7 @@ def _infoplists(ctx, parent_dir, files):
             paths.basename(parent_dir),
             files.to_list(),
             out_plist,
+            resource_bundle_id,
         )
         return struct(
             files = [

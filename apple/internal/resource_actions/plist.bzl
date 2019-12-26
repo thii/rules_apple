@@ -103,7 +103,7 @@ def compile_plist(ctx, input_file, output_file):
         mnemonic = mnemonic,
     )
 
-def merge_resource_infoplists(ctx, bundle_name, input_files, output_plist):
+def merge_resource_infoplists(ctx, bundle_name, input_files, output_plist, resource_bundle_id = None):
     """Merges a list of plist files for resource bundles with substitutions.
 
     Args:
@@ -118,6 +118,9 @@ def merge_resource_infoplists(ctx, bundle_name, input_files, output_plist):
         "PRODUCT_NAME": product_name,
         "TARGET_NAME": product_name,
     }
+
+    if resource_bundle_id:
+        substitutions["PRODUCT_BUNDLE_IDENTIFIER"] = resource_bundle_id
 
     target = '%s (while bundling under "%s")' % (bundle_name, str(ctx.label))
 

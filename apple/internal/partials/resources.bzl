@@ -65,6 +65,10 @@ load(
     "@bazel_skylib//lib:partial.bzl",
     "partial",
 )
+load(
+    "@bazel_skylib//lib:paths.bzl",
+    "paths",
+)
 
 def _merge_root_infoplists(ctx, infoplists, out_infoplist, **kwargs):
     """Registers the root Info.plist generation action.
@@ -180,6 +184,23 @@ def _deduplicate(resources_provider, avoid_provider, owners, avoid_owners, field
             deduped_tuples.append((parent_dir, swift_module, depset(deduped_files)))
 
     return deduped_tuples
+
+def _derive_bundle_id_prefix(label):
+    """Returns a derived bundle identifier prefix from the given build label.
+
+    Args:
+        label: A single argument of type `Label`.
+
+    Returns:
+        The bundle identifier prefix derived from the label.
+    """
+    package = label.package
+    name = label.name
+
+    package_part = (package.lstrip("//").replace("/", "."))
+    if package_part:
+        return package_part + "." + name
+    return name
 
 def _locales_requested(ctx):
     """Determines which locales to include when resource actions.
@@ -326,6 +347,10 @@ def _resources_partial_impl(
             # requires it.
             if requires_swift_module:
                 processing_args["swift_module"] = swift_module
+
+            if field == "infoplists":
+                prefix = bundle_id if bundle_id else _derive_bundle_id_prefix(ctx.label)
+                processing_args["resource_bundle_id"] = prefix + "." + paths.replace_extension(parent_dir, "")
 
             result = processing_func(**processing_args)
             bundle_files.extend(result.files)
