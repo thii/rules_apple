@@ -21,5 +21,8 @@ filegroup(
         "@build_bazel_apple_support//:for_bazel_tests",
         "@build_bazel_rules_swift//:for_bazel_tests",
     ],
-    visibility = ["//:__subpackages__"],
+    visibility = [
+        "//:__subpackages__",
+        "@build_bazel_tulsi//:for_bazel_tests",
+    ],
 )
