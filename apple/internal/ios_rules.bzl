@@ -199,6 +199,7 @@ def _ios_application_impl(ctx):
         ),
         partials.framework_import_partial(
             actions = actions,
+            features = features,
             label_name = label.name,
             package_symbols = True,
             platform_prerequisites = platform_prerequisites,
@@ -234,6 +235,7 @@ def _ios_application_impl(ctx):
             binary_artifact = binary_artifact,
             bundle_dylibs = True,
             dependency_targets = embeddable_targets,
+            features = features,
             label_name = label.name,
             package_swift_support_if_needed = True,
             platform_prerequisites = platform_prerequisites,

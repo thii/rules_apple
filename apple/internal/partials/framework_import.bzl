@@ -64,6 +64,7 @@ def _framework_import_partial_impl(
         *,
         ctx,
         actions,
+        features,
         label_name,
         package_symbols,
         platform_prerequisites,
@@ -153,6 +154,9 @@ def _framework_import_partial_impl(
 
         if bitcode_support.bitcode_mode_string(platform_prerequisites.apple_fragment) == "none":
             args.add("--strip_bitcode")
+
+        if "apple.strip_swift_symbols" in features:
+            args.add("--strip_swift_symbols")
 
         args.add("--output_zip", framework_zip.path)
 
@@ -306,6 +310,7 @@ def _generate_symbols(
 def framework_import_partial(
         *,
         actions,
+        features = [],
         label_name,
         package_symbols = False,
         platform_prerequisites,
@@ -319,6 +324,7 @@ def framework_import_partial(
 
     Args:
         actions: The actions provider from `ctx.actions`.
+        features: List of features enabled by the user. Typically from `ctx.features`.
         label_name: Name of the target being built.
         package_symbols: Whether the partial should package the symbols files for all binaries.
         platform_prerequisites: Struct containing information on the platform being targeted.
@@ -333,6 +339,7 @@ def framework_import_partial(
     return partial.make(
         _framework_import_partial_impl,
         actions = actions,
+        features = features,
         label_name = label_name,
         package_symbols = package_symbols,
         platform_prerequisites = platform_prerequisites,

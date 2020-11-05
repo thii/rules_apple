@@ -10,6 +10,7 @@ py_binary(
     visibility = ["//visibility:public"],
     deps = [
         "//tools/bitcode_strip",
+        "//tools/strip",
         "//tools/codesigningtool:codesigningtool_lib",
         "//tools/wrapper_common:lipo",
     ],

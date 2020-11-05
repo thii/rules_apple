@@ -1,19 +1,14 @@
 licenses(["notice"])
 
-py_binary(
-    name = "swift_stdlib_tool",
-    srcs = ["swift_stdlib_tool.py"],
+py_library(
+    name = "strip",
+    srcs = ["strip.py"],
     srcs_version = "PY2AND3",
     # Used by the rule implementations, so it needs to be public; but
     # should be considered an implementation detail of the rules and
     # not used by other things.
     visibility = ["//visibility:public"],
-    deps = [
-        "//tools/bitcode_strip",
-        "//tools/strip",
-        "//tools/wrapper_common:execute",
-        "//tools/wrapper_common:lipo",
-    ],
+    deps = ["//tools/wrapper_common:execute"],
 )
 
 # Consumed by bazel tests.
