@@ -118,7 +118,7 @@ def _ios_application_impl(ctx):
         entitlements_file = getattr(ctx.file, "entitlements", None),
     )
     extra_features = features_support.features_for_compilation_mode(
-        ctx.var["COMPILATION_MODE"]
+        compilation_mode = ctx.var["COMPILATION_MODE"]
     )
     features = features_support.compute_enabled_features(
         requested_features = ctx.features + extra_features,

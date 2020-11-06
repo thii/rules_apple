@@ -37,7 +37,7 @@ def _compute_enabled_features(*, requested_features, unsupported_features):
     )
     return sets.to_list(enabled_features_set)
 
-def _features_for_compilation_mode(compilation_mode):
+def _features_for_compilation_mode(*, compilation_mode):
     """Returns a list of default Apple features for current compilation mode.
 
     Args:
