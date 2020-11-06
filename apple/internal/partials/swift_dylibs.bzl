@@ -226,7 +226,7 @@ def _swift_dylibs_partial_impl(
                         platform_prerequisites = platform_prerequisites,
                         swift_stdlib_tool = swift_stdlib_tool,
                         strip_bitcode = False,
-                        strip_swift_symbols = strip_swift_symbols,
+                        strip_swift_symbols = False,
                     )
                 else:
                     # When not building with bitcode, we can reuse Swift dylibs
