@@ -27,6 +27,10 @@ load(
     "bitcode_support",
 )
 load(
+    "@build_bazel_rules_apple//apple/internal:feature_names.bzl",
+    "APPLE_FEATURE_STRIP_SWIFT_SYMBOLS",
+)
+load(
     "@build_bazel_rules_apple//apple/internal:intermediates.bzl",
     "intermediates",
 )
@@ -175,7 +179,7 @@ def _swift_dylibs_partial_impl(
 
     strip_bitcode = bitcode_support.bitcode_mode_string(platform_prerequisites.apple_fragment) == "none"
 
-    strip_swift_symbols = "apple.strip_swift_symbols" in features
+    strip_swift_symbols = APPLE_FEATURE_STRIP_SWIFT_SYMBOLS in features
 
     swift_support_requested = defines.bool_value(ctx, "apple.package_swift_support", True)
     needs_swift_support = platform_support.is_device_build(ctx) and swift_support_requested

@@ -31,6 +31,10 @@ load(
     "codesigning_support",
 )
 load(
+    "@build_bazel_rules_apple//apple/internal:feature_names.bzl",
+    "APPLE_FEATURE_STRIP_SWIFT_SYMBOLS",
+)
+load(
     "@build_bazel_rules_apple//apple/internal:processor.bzl",
     "processor",
 )
@@ -155,7 +159,7 @@ def _framework_import_partial_impl(
         if bitcode_support.bitcode_mode_string(platform_prerequisites.apple_fragment) == "none":
             args.add("--strip_bitcode")
 
-        if "apple.strip_swift_symbols" in features:
+        if APPLE_FEATURE_STRIP_SWIFT_SYMBOLS in features:
             args.add("--strip_swift_symbols")
 
         args.add("--output_zip", framework_zip.path)
